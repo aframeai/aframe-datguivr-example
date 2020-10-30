@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>AFrame Dat-GUI Experiment</title>
+    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <script src="datguivr.js"></script>
+    <script defer src="datguivr-aframe.js"></script>
+  </head>
+  <body>
+
+    <a-scene>
+      <a-box
+        position="-1 0.5 -3"
+        rotation="0 45 0"
+        color="#4CC3D9"
+      ></a-box>
+      <a-sphere
+        position="0 1.25 -5"
+        radius="1"
+        color="#EF2D5E"
+        material="transparent:true; opacity: 0.5"
+        wireframe="true"
+      ></a-sphere>
+      <a-cylinder
+        position="1 0.75 -3"
+        radius="0.5"
+        height="1.5"
+        color="#FFC65D" 
+      ></a-cylinder>
+      <a-plane
+        position="0 0 -4"
+        rotation="-90 0 0"
+        width="4"
+        height="4"
+        color="#7BC8A4"
+      ></a-plane>
+
+      <a-datgui position="1 2.5 -2.5" rotation="0 -20 0" name="settings">
+        <a-gui-slider
+          id="widthControl"
+          name="width"
+          step="0.01"
+          min="1"
+          max="4"
+        ></a-gui-slider>
+
+        <a-gui-slider
+          id="heightControl"
+          name="height"
+          step="0.01"
+          min="1"
+          max="4"
+        ></a-gui-slider>
+
+        <a-gui-slider
+          id="depthControl"
+          name="depth"
+          step="0.01"
+          min="1"
+          max="4"
+        ></a-gui-slider>
+
+        <a-gui-button name="button1"></a-gui-button>
+        <a-gui-button name="button 2"></a-gui-button>
+
+        <a-gui-checkbox
+          id="wireframe"
+          name="wireframe"
+          default="true"
+        ></a-gui-checkbox>
+
+        <a-gui-checkbox
+          id="translucent"
+          name="translucent"
+          default="true"
+        ></a-gui-checkbox>
+      </a-datgui>
+    </a-scene>
+
+    <script>
+      // log all mouseclicks
+      document.querySelectorAll("a-gui-button").forEach((el) =>
+        el.addEventListener("onClicked", function (evt) {
+          let name = evt.target.getAttribute("name");
+          console.log("Button", name, "clicked");
+        })
+      );
+
+      // log all slider and checkbox changes
+      document.querySelectorAll("a-gui-slider, a-gui-checkbox").forEach((el) =>
+        el.addEventListener("onChanged", (evt) => {
+          let name = evt.target.getAttribute("name");
+          let value = evt.detail.value;
+          console.log(name, value);
+        })
+      );
+
+      // change depth of the sphere
+      document
+        .querySelector("#depthControl")
+        .addEventListener("onChanged", (evt) => {
+          // modify Three.js object
+          let object = document.querySelector("a-sphere").object3D;
+          object.scale.z = evt.detail.value;
+        });
+
+      // change width of the sphere
+      document
+        .querySelector("#widthControl")
+        .addEventListener("onChanged", (evt) => {
+          // modify Three.js object
+          let object = document.querySelector("a-sphere").object3D;
+          object.scale.x = evt.detail.value;
+        });
+
+      // change height of the sphere
+      document
+        .querySelector("#heightControl")
+        .addEventListener("onChanged", (evt) => {
+          // modify Three.js object
+          let object = document.querySelector("a-sphere").object3D;
+          object.scale.y = evt.detail.value;
+        });
+
+      // change wireframe rendering
+      document
+        .querySelector("#wireframe")
+        .addEventListener("onChanged", (evt) => {
+          let el = document.querySelector("a-sphere");
+          // set entity attribute
+          el.setAttribute("wireframe", evt.detail.value);
+        });
+
+      // change opacity
+      document
+        .querySelector("#translucent")
+        .addEventListener("onChanged", (evt) => {
+          let el = document.querySelector("a-sphere");
+          // modify component attribute
+          el.setAttribute("material", "opacity", evt.detail.value ? 0.5 : 1);
+        });
+    </script>
+  </body>
+</html>
