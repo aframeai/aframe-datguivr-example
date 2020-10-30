@@ -1,6 +1,6 @@
 # aframe-datguivr-example
 
-![screenshot](https://user-images.githubusercontent.com/720669/97750481-25e2e780-1af1-11eb-8f08-19c0fe63f38c.png)
+[![screenshot](https://user-images.githubusercontent.com/720669/97750481-25e2e780-1af1-11eb-8f08-19c0fe63f38c.png)](https://aframeai.github.io/aframe-datguivr-example/index.html)
 
 *A-Frame component for [datGUIVR](https://github.com/dataarts/dat.guiVR)*
 
