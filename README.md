@@ -1,18 +1,18 @@
-# aframe-datguivr
-A-Frame component for [datGUIVR](https://github.com/dataarts/dat.guiVR)
+# aframe-datguivr-example
 
-## Example
+*A-Frame component for [datGUIVR](https://github.com/dataarts/dat.guiVR)*
 
-    <a-datgui name="settings" position="0 2 -1">
-      <a-gui-slider id="scaleControl" name="scale" step="0.01" min="0.01" max="4"></a-gui-slider>
-      <a-gui-dropdown name="options">
-        <a-gui-option value="0">Item 0</a-gui-option>
-        <a-gui-option value="1">Item 1</a-gui-option>
-      </a-gui-dropdown>
-      <a-gui-checkbox name="on or off" default="true"></a-gui-checkbox>
-      <a-gui-button name="click me"></a-gui-button>
-    </a-datgui>   
+- This is a proof of concept & is not developed any more
+- I created an example that works with A-Frame 1.4.0 (kind of).
+- the example shows how you can link DAT-GUI to your A-Frame scene
 
-Currently supports "stateless" controllers only, meaning you can't attach controllers directly to JS objects, however you can listen to controller changes and update anything accordingly.
+## Note
 
-Each controller element will emit an "onChanged" event supplying the new value.    
+- "stateless" controllers only, meaning you can't attach controllers directly to JS objects
+- you CAN listen to controller changes and update anything accordingly, though.
+
+## Limitations & Bugs
+
+- only sliders, checkboxes and buttons
+- labels are not displayed for Aframe > 0.9.0
+- dat.guiVR is basically dead 🙁
