@@ -18,6 +18,7 @@ AFRAME.registerComponent('datgui', {
     }
   },
   init: function(){
+
     const gui = dat.GUIVR.create( this.data.name );
     this.el.setObject3D('gui', gui );
     this.el.gui = gui;
@@ -31,6 +32,7 @@ AFRAME.registerComponent('datgui', {
       el.addEventListener('triggerup', function(){
         input.pressed( false );
       });
+
       el.addEventListener('gripdown', function(){
         input.gripped( true );
       });
@@ -59,8 +61,19 @@ AFRAME.registerComponent('datgui', {
     if( this.data.name ){
       gui.name( this.data.name );
     }
+
+    // change the position and rotation of the child so drag & drop works as expected
+    let panel = this.el.object3D.children[ this.el.object3D.children.length - 1 ];
+    let position = this.el.getAttribute('position');
+    panel.position.set(  position.x, position.y, position.z);
+    this.el.setAttribute('position', '0 0 0');
+    let rotation = this.el.getAttribute('rotation');
+    panel.rotation.set( THREE.Math.degToRad(rotation.x), THREE.Math.degToRad(rotation.y), THREE.Math.degToRad(rotation.z));
+    this.el.setAttribute('rotation', '0 0 0'); 
+
   }
 });
+
 
 AFRAME.registerPrimitive('a-datgui', {
   defaultComponents: {
@@ -132,7 +145,10 @@ AFRAME.registerComponent( 'guicontroller', {
         that.controller = gui.addCheckbox( that.data.defaultValue );
         break;
       case 'button':
-        that.controller = gui.addButton( function(){} );
+        that.controller = gui.addButton( function(){
+          // emit button event
+          that.el.emit( 'onClicked', true );
+        } );
         break;
     }
 
